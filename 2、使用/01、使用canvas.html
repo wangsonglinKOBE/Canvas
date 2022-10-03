@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+
+<style>
+  /* 从左右居中的样式可以看出，canvas 属于行内元素 */
+  canvas {
+    border: 1px solid black;
+    margin: 0 auto;
+    display: block;
+  }
+</style>
+
+<body>
+  <!-- canvas在低版本浏览器中不兼容，需要提示用户 -->
+  <!-- 当浏览器不识别 canvas 时，会把canvas当成一个普通的标签，如果浏览器支持canvas则忽略文本内容，有没有觉得和noscript标签很像呢！-->
+  <canvas width="500px" height="500px">您的浏览器版本过低，请升级浏览器或者使用chrome打开！</canvas>
+</body>
+
+</html>

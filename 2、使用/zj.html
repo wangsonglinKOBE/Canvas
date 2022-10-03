@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+
+<style>
+  canvas {
+    border: 1px solid black;
+    margin: 0 auto;
+    display: block;
+  }
+</style>
+
+<body>
+  <canvas id="cont" width="800px" height="800px">您的浏览器版本过低，请升级浏览器或者使用chrome打开！</canvas>
+
+  <script type="text/javascript">
+
+    var canvas = document.querySelector('#cont');
+    var ctx = canvas.getContext('2d');
+
+    function drawLine(x1, y1, x2, y2, color, width) {
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.lineWidth = width || 2;
+      ctx.strokeStyle = color || 'cayn';
+      ctx.stroke();
+      ctx.closePath();
+    };
+
+    drawLine(10, 10, 50, 10);
+    drawLine(50, 10, 50, 50);
+    drawLine(50, 50, 10, 50);
+    drawLine(10, 50, 10, 90);
+    drawLine(10, 90, 50, 90);
+    drawLine(50, 90, 50, 130);
+    drawLine(50, 130, 30, 115);
+    drawLine(80, 10, 80, 130);
+    drawLine(80, 130, 110, 110);
+    drawLine(55, 70, 145, 70);
+    drawLine(80, 70, 132, 15);
+    drawLine(80, 70, 140, 120);
+
+    // drawLine(300, 10, 300, 110);
+    for (let index = 0; index < 10; index++) {
+      drawLine(300, 10 + 10 * index, 300, 15 + 10 * index,);
+    }
+    drawLine(260, 50, 340, 50);
+    drawLine(300, 50, 260, 110);
+    drawLine(300, 50, 340, 110);
+
+    drawLine(260, 115, 255, 130);
+    drawLine(290, 115, 295, 130);
+    drawLine(313, 115, 318, 130);
+    drawLine(343, 115, 348, 130);
+  </script>
+</body>
+  
+
+</html>

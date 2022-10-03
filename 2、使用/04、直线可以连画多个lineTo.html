@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+
+<style>
+  canvas {
+    border: 1px solid black;
+    margin: 0 auto;
+    display: block;
+  }
+</style>
+
+<body>
+  <canvas id="cont" width="500px" height="500px">您的浏览器版本过低，请升级浏览器或者使用chrome打开！</canvas>
+
+  <script type="text/javascript">
+
+    var canvas = document.querySelector('#cont');
+    var ctx = canvas.getContext('2d');
+
+    // 画直线
+    function drawLine(x1, y1, x2, y2, x3, y3, x4, y4, color, width) {
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      // 可以一直lineTo哦！
+      ctx.lineTo(x2, y2);
+      ctx.lineTo(x3, y3);
+      ctx.lineTo(x4, y4);
+      ctx.lineWidth = width;
+      ctx.strokeStyle = color;
+      ctx.stroke();
+      ctx.closePath();
+    };
+
+    drawLine(100, 100, 400, 100, 400, 400, 100, 100, 'cyan', 5);
+
+
+  </script>
+</body>
+
+</html>
