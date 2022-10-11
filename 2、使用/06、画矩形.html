@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    canvas {
+      /* 疑惑: 为什么行外样式设定宽高后,绘制出来就有问题? */
+      /* height: 500px;
+      width: 500px; */
+      display: block;
+      margin: 0 auto;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="cont" width="500px" height="500px">您的浏览器版本过低，请升级浏览器或者使用chrome打开</canvas>
+
+  <script type="text/javascript">
+    // 固定脚本
+    // 1,获取canvas节点
+    let canvas = document.querySelector("#cont");
+    // 2,获取操作画布的api, ctx
+    let ctx = canvas.getContext('2d');
+
+    /* 
+      画矩形
+      api: rect(x, y, width, height); 绘制矩形
+      x: 矩形左上角的 x 坐标
+      y: 矩形左上角的 y 坐标
+      width: 矩形的宽度
+      heigth: 矩形的高度
+
+      绘制实心矩形
+      fillRect(x, y, width, heigth)
+
+      绘制空心矩形
+      strokeRect(x, y, width, heigth)
+    */
+
+    // 绘制矩形
+    ctx.rect(100, 100, 300, 200);
+
+    // 填充
+    ctx.fillStyle = 'cyan';
+    ctx.fill();
+
+    // 设置矩形边框颜色
+    ctx.strokeStyle = 'red';
+    // 边框宽度
+    ctx.lineWidth = 5;
+    // 着色
+    ctx.stroke();
+
+    // 踩坑经验: 如果矩形同时需要 填充 和 描边 时, 先填充再描边!!
+
+
+    /* 绘制实心矩形 */
+    // 重置 填充 颜色后再绘制实心矩形哦
+    ctx.fillStyle = 'pink';
+    ctx.fillRect(100, 350, 100, 100);
+
+
+    /* 绘制空心矩形 */
+    // 重置 边框 颜色 && 宽度 后再绘制空心矩形哦
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = 'blue';
+    ctx.strokeRect(300, 350, 100, 100);
+   
+  </script>
+</body>
+
+</html>

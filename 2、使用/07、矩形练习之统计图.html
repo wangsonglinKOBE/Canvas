@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    canvas {
+      display: block;
+      margin: 0 auto;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="cont" width="500px" height="500px">您的浏览器版本过低，请升级浏览器或者使用chrome打开</canvas>
+
+  <script type="text/javascript">
+    // 固定脚本
+    // 1,获取canvas节点
+    let canvas = document.querySelector("#cont");
+    // 2,获取操作画布的api, ctx
+    let ctx = canvas.getContext('2d');
+
+    // 绘制直线
+    function drawLine(x1, y1, x2, y2, color, width) {
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.lineWidth = width;
+      ctx.strokeStyle = color;
+      ctx.stroke();
+      ctx.closePath();
+    };
+
+    // 绘制矩形
+    function drawRect(x, y, width, height, colorContent, colorBorder) {
+      ctx.rect(x, y, width, height);
+      // 填充颜色
+      ctx.fillStyle = colorContent;
+      // 填充
+      ctx.fill();
+      // 边框颜色
+      ctx.strokeStyle = colorBorder;
+      ctx.lineWidth = 4;
+      // 绘制
+      ctx.stroke();
+
+    }
+
+    drawRect(200, 100, 30, 300, 'cyan', 'green');
+    drawLine(50, 50, 50, 400, 'black', 2);
+    drawLine(50, 400, 450, 400, 'black', 2);
+
+  </script>
+</body>
+
+</html>
