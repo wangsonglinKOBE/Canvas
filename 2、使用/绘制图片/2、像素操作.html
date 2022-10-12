@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>像素操作</title>
+  <style>
+    canvas {
+      display: block;
+      margin: 0 auto;
+      border: 1px solid #000;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="cont" width="800px" height="800px">您的浏览器版本过低！</canvas>
+
+
+  <script>
+    const canvas = document.querySelector('#cont');
+    const ctx = canvas.getContext('2d');
+
+    // 绘制红色矩形
+    ctx.fillStyle = '#f00';
+    ctx.fillRect(0, 0, 100, 100);
+
+
+    /* 
+      getImageData():
+        返回 ImageData 对象，该对象拷贝了画布指定矩形的像素数据，
+        对于 ImageData 对象中的每个像素，都存在着四方面的信息，即 RGBA 值：
+        R - 红色(0 - 255)
+        G - 绿色(0 - 255)
+        B - 蓝色(0 - 255)
+        A - alpha 透明度 (0 - 255; 0 是透明的， 255 是完全可见的)
+        color/alpha 以数组形式存在，并存储于 ImageData 对象的 data 属性中
+        var imgData = ctx.getImageData(x, y, width, height);
+        x: 开始复制左上角位置的 x 坐标
+        y: 开始复制左上角位置的 y 坐标
+        width: 将要复制矩形区域的宽度
+        height: 将要复制矩形区域的高度
+    */
+
+    var copyRect = ctx.getImageData(0, 0, 10, 10);
+    //  打印的对象中的 data 是一个数组，数组中每4项值代表一个像素点(即该像素点的 r、g、b、a的值)
+    // 并且 data 的长度是 400，因为拷贝的宽高都是10， 10*10为100，就表示拷贝了100个像素点，然后每个像素点有4个值，所以data的长度是400
+    console.log('copyRect', copyRect);
+
+
+
+
+    /* ----------------复制图片像素点------------------ */
+    //  绘制图片
+    let img = new Image(); //创建img
+    img.src = './kobe.jpg'; //指定src
+    img.addEventListener('load', () => { //图片加载成功后绘制图片, 并复制像素点
+      imgWidth = img.width;
+      imgHeight = img.height;
+      ctx.drawImage(img, 200, 200, imgWidth, imgHeight);
+
+      // 复制图片像素点(注意这里打开浏览器时选择 Open with Live Server, 否则会报错 )
+      let copyImg = ctx.getImageData(330, 330, 150, 150);
+      console.log('copyImg', copyImg);
+
+
+      /* 
+        putImageData(): 将复制的像素放回画布
+        putImageData(imageData, x, y, dirtyX, dirtyY, dirtyWidth, dirtyHeight);
+          imageData: 规定要放回画布的 ImageData 对象
+          x: ImageData 对象左上角的 x 坐标，以像素计
+          y: ImageData 对象左上角的 y 坐标
+          dirtyX: 可选，水平值(x), 在画布上放置图像的位置， 以像素计
+          dirtyY: 可选，水平值(y), 在画布上放置图像的位置
+          dirtyWidth, dirtyHeight: 可选, 在画布上绘制图像所使用的宽高
+      */
+
+      // 将复制的图片像素放在画布上
+      ctx.putImageData(copyImg, 0, 200);
+    }, false)
+
+
+
+  </script>
+</body>
+
+</html>

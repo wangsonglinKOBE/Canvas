@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>像素文字</title>
+  <style>
+    canvas {
+      display: block;
+      margin: 0 auto;
+      border: 1px solid #000;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="cont" width="500px" height="500px">你的浏览器版本过低！</canvas>
+
+  <script>
+    const canvas = document.querySelector('#cont');
+    const ctx = canvas.getContext('2d');
+
+    const canvasWidth = 500;
+    const canvasHeight = 500;
+
+    /* 绘制圆 */
+    function drawCircle(x, y, r, color) {
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, 2 * Math.PI, true);
+      ctx.fillStyle = color || '#000';
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    /* 绘制文字 */
+    function drawText(text, x, y) {
+      ctx.font = '200px 楷体';
+      ctx.fillStyle = '#000';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(text, x, y, canvasWidth);
+    }
+
+
+    // 绘制文字
+    drawText('心❤', canvasWidth / 2, canvasHeight / 2);
+
+    // 获取整块画布所有像素点
+    let copy = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
+
+    // 清除画布
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+    // 筛选有效像素点
+    var leap = 5;
+    for (var y = 0; y < canvasHeight; y += leap) {
+      for (var x = 0; x < canvasWidth; x += leap) {
+        var index = x + y * canvasWidth;
+        var a = copy.data[index * 4 + 3];
+        if (a > 128) {
+          // 画圆
+          drawCircle(x, y, 2, '#f00');
+        }
+      }
+    }
+
+  </script>
+</body>
+
+</html>

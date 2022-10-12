@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>像素文字</title>
+  <style>
+    canvas {
+      display: block;
+      margin: 0 auto;
+      border: 1px solid #000;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="cont" width="500px" height="500px">你的浏览器版本过低！</canvas>
+
+  <script>
+    const canvas = document.querySelector('#cont');
+    const ctx = canvas.getContext('2d');
+
+    const canvasWidth = 500;
+    const canvasHeight = 500;
+
+    /* 绘制圆 */
+    function drawCircle(x, y, r, color) {
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, 2 * Math.PI, true);
+      ctx.fillStyle = color || '#000';
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    /* 绘制文字 */
+    function drawText(text, x, y) {
+      ctx.font = '300px 微软雅黑';
+      ctx.fillStyle = '#000';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(text, x, y, canvasWidth);
+    }
+
+    /* 绘制填充文字 */
+    function drawFillText(text, x, y, color) {
+      ctx.font = '12px 微软雅黑';
+      ctx.fillStyle = color;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(text, x, y, canvasWidth);
+    }
+
+
+    // 绘制文字
+    drawText('❤', canvasWidth / 2, canvasHeight / 2);
+
+    // 获取整块画布所有像素点
+    let copy = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
+
+    // 清除画布
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+    function r(num) {
+      return Math.random() * num;
+    }
+
+    // 运动时间(运动次数)
+    var times = 100;
+
+    // 定义小球类, 创建小球梦工厂
+    function Ball(xEnd, yEnd) {
+      // 起始位置随机
+      this.xStart = r(canvasWidth);
+      this.yStart = r(canvasHeight);
+
+      // 结束位置
+      this.xEnd = xEnd;
+      this.yEnd = yEnd;
+
+      // 计算运动速度(x轴速度和y轴速度)，通过起始点和结束点
+      this.xSpeed = (this.xEnd - this.xStart) / times;
+      this.ySpeed = (this.yEnd - this.yStart) / times;
+
+      // 小球运动过程中的圆心坐标,初始值为起始点
+      this.x = this.xStart;
+      this.y = this.yStart;
+
+      // 设置半径和颜色
+      this.r = 2;
+      this.color = '#f00';
+
+      // 设置填充文字和颜色
+      this.text = '❤';
+      this.textColor = `rgb(255, ${r(255)}, ${r(255)}`;
+    }
+
+    Ball.prototype.show = function () {
+      // 计算每次运动的坐标位置
+      this.x += this.xSpeed;
+      this.y += this.ySpeed;
+
+      // drawCircle(this.x, this.y, this.r, this.color);
+      drawFillText(this.text, this.x, this.y, this.textColor);
+    }
+
+
+    // 筛选有效像素点
+    var leap = 12; //小球之间间隔
+    var ballArr = []; //存放小球素组
+    for (var y = 0; y < canvasHeight; y += leap) {
+      for (var x = 0; x < canvasWidth; x += leap) {
+        var index = x + y * canvasWidth;
+        var a = copy.data[index * 4 + 3];
+        if (a > 128) {
+          //调用小球类，绘制圆
+          let ball = new Ball(x, y);
+          // 存入数组
+          ballArr.push(ball);
+          // 显示小球
+          ball.show();
+        }
+      }
+    }
+
+    // 运动
+    var count = 1;
+    let timer = setInterval(function () {
+      count++;
+      // 清除画布
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+      for (var i = 0; i < ballArr.length; i++) {
+        ballArr[i].show();
+      }
+      if (count == times) {
+        clearInterval(timer);
+        return;
+      }
+    }, 20)
+
+
+
+  </script>
+</body>
+
+</html>
