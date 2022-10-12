@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>碰撞检测</title>
+  <style>
+    canvas {
+      display: block;
+      margin: 0 auto;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="cont" width="500px" height="500px">您的浏览器版本过低，请升级浏览器或者使用chrome打开！</canvas>
+
+  <script>
+    const canvas = document.querySelector('#cont');
+    const ctx = canvas.getContext('2d');
+
+    // 画布的宽高
+    let w = 500;
+    let h = 500;
+    let x = 100;
+    let y = 100;
+    let r = 30;
+
+    // 水平速度
+    let xSpeed = 3;
+
+    // 垂直速度
+    let ySpeed = 2;
+
+    setInterval(() => {
+      // 清除画布
+      ctx.clearRect(0, 0, w, h);
+
+      // 在小球碰到边缘时，速度相反即可！
+      if (x - r <= 0 || x + r >= w) {
+        // 当碰到左右两边边框时，水平速度取反
+        xSpeed = -xSpeed;
+      }
+      if (y - r <= 0 || y + r >= h) {
+        // 当碰到上下两边边框时，垂直速度取反
+        ySpeed = -ySpeed;
+      }
+
+      // 水平运动的速度
+      x += xSpeed;
+
+      // 垂直运动的速度
+      y += ySpeed;
+      // 运动
+      drawCircle(x, y, r);
+    }, 10);
+
+    function drawCircle(x, y, r) {
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fillStyle = 'gold'
+      ctx.fill();
+    };
+
+  </script>
+
+</body>
+
+</html>

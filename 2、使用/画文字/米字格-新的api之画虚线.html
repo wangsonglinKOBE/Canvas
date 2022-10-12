@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>米字格</title>
+  <style>
+    canvas {
+      display: block;
+      margin: 0 auto;
+      border: 1PX solid #000;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="cont" width="500px" height="500px">你的浏览器版本过低！</canvas>
+
+
+  <script>
+    const canvas = document.querySelector('#cont');
+    const ctx = canvas.getContext('2d');
+
+    // 封装画直线
+    function drawLine(x1, y1, x2, y2, color) {
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.strokeStyle = color || '#000';
+      ctx.stroke();
+      ctx.closePath();
+    }
+
+    // 封装绘制文字
+    function drawText(text, x, y) {
+      ctx.font = '400px 楷体';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(text, x, y);
+    }
+
+    // 画垂直和水平线
+    drawLine(0, 250, 500, 250);
+    drawLine(250, 0, 250, 500);
+
+    // 绘制文字
+    drawText('米', 250, 250);
+
+    // 绘制虚线
+    // for (let i = 0; i < 50; i++) {
+    //   drawLine(0 + i * 10, 0 + i * 10, 5 + i * 10, 5 + i * 10);
+    // }
+
+    // for (let i = 0; i < 50; i++) {
+    //   drawLine(500 - i * 10, 0 + i * 10, 495 - i * 10, 5 + i * 10);
+    // }
+
+    
+    /* 
+      绘制虚线：
+        setLineDash([线段的长度， 线段间的间隔])
+    */
+    ctx.setLineDash([5, 5]);
+    drawLine(0, 0, 500, 500);
+    drawLine(0, 500, 500, 0);
+
+
+  </script>
+</body>
+
+</html>

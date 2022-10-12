@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>碰撞检测--面向对象的小球</title>
+  <style>
+    canvas {
+      display: block;
+      margin: 0 auto;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="cont" width="500px" height="500px">您的浏览器版本过低，请升级浏览器或者使用chrome打开！</canvas>
+
+  <script>
+    const canvas = document.querySelector('#cont');
+    const ctx = canvas.getContext('2d');
+
+    // 画布的宽高
+    var w = 500, h = 500;
+
+    // 思路： 面向对象的小球，每一个运动的小球都是一个整体(圆心坐标，半径，速度，颜色等)即对象
+
+    function r(num) {
+      return Math.random() * num;
+    }
+
+    // 构造函数，构造小球梦工厂，定义小球的属性
+    /* 
+      @prototype:
+        x,y: 圆心坐标
+        r: 半径
+        color: 颜色
+        xSpeed： 水平运动速度
+        ySpeed：垂直运动速度
+    */
+    function Ball() {
+      this.x = r(5)+60;
+      this.y = r(3)+60;
+      this.r = r(50) + 10; //[10, 60）
+      this.color = '#' + parseInt(Math.random() * 0xffffff).toString(16);
+      this.xSpeed = r(3) + 2;//[2, 5)
+      this.ySpeed = r(3) + 1;//[1, 4)
+    }
+
+    // 定义单个小球显示方法
+    Ball.prototype.show = function () {
+      // 更新坐标
+      this.run();
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fillStyle = this.color;
+      ctx.fill();
+    }
+
+    // 单个小球运动方法，碰撞检测、
+    Ball.prototype.run = function () {
+      if (this.x - this.r <= 0 || this.x + this.r >= w) {
+        this.xSpeed = -this.xSpeed;
+      }
+      if (this.y - this.r <= 0 || this.y + this.r >= h) {
+        this.ySpeed = -this.ySpeed;
+      }
+      this.x += this.xSpeed;
+      this.y += this.ySpeed;
+    }
+
+    // 存放小球的数组
+    var ballArr = [];
+
+    // 批量创建小球
+    for (var i = 0; i < 30; i++) {
+      var ball = new Ball();
+      ballArr.push(ball)
+      ball.show();
+    }
+
+    // 批量小球运动
+    setInterval(function () {
+      // 清除画布
+      ctx.clearRect(0, 0, w, h);
+      for (var i = 0; i < ballArr.length; i++) {
+        var ball = ballArr[i];
+        // 更新坐标，显示小球
+        ball.show();
+      }
+    }, 10)
+
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>

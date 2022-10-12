@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>清除画布</title>
+  <style>
+    canvas {
+      display: block;
+      margin: 0 auto;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="cont" width="500px" height="500px">您的浏览器版本过低，请升级浏览器或者使用chrome打开！</canvas>
+
+  <script>
+    // 固定
+    const canvas = document.querySelector('#cont');
+    const ctx = canvas.getContext('2d');
+
+    // 画矩形
+    ctx.rect(100, 100, 200, 200);
+    // 填充
+    ctx.fillStyle = 'green';
+    ctx.fill();
+    // 描边
+    ctx.strokeStyle = 'red';
+    ctx.lineWidth = 5;
+    // 画
+    ctx.stroke();
+
+    /* 
+      清除画布：
+        api: clearRect(x, y, width, height)
+        x: 矩形左上角的 x 坐标
+        y: 矩形左上角的 y 坐标
+        width: 矩形的宽度，以像素计
+        height: 矩形的高度，以像素计
+    */
+
+    ctx.clearRect(120, 120, 50, 50)
+  </script>
+</body>
+</html>

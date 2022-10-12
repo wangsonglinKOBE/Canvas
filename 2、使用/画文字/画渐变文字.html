@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>画文字</title>
+  <style>
+    canvas {
+      display: block;
+      margin: 0 auto;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="cont" width="500px" height="500px">您的浏览器版本过低！</canvas>
+
+  <script>
+    const canvas = document.querySelector('#cont');
+    const ctx = canvas.getContext('2d');
+
+    // 设置字体样式
+    ctx.font = '45px 微软雅黑';
+
+    /* 
+      设置线性渐变
+
+    */
+    var gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+    gradient.addColorStop('0', 'yellow');
+    gradient.addColorStop('0.5', 'cyan');
+    gradient.addColorStop('1.0', 'red');
+
+    // 应用渐变
+    ctx.fillStyle = gradient;
+    ctx.fillText('今天天气不错， 风和日丽', 10, 100, 480);
+
+     // 应用渐变
+     ctx.strokeStyle = gradient;
+    ctx.strokeText('适合出去郊游！! happy~', 10, 300, 480);
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>画圆</title>
+  <style>
+    canvas {
+      display: block;
+      margin: 0 auto;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="cont" width="500px" height="500px">您的浏览器版本过低，请升级浏览器或者使用chrome打开！</canvas>
+
+  <script>
+    const canvas = document.querySelector('#cont');
+    const ctx = canvas.getContext('2d');
+
+    /* 
+      ***画圆
+      api: arc(x, y, radius, startAngle, endAngle, counterclockwise)
+      x, y 圆心坐标
+      radius: 半径
+      startAngle, endAngle: 
+        起始点和结束点，
+        沿着圆指定弧度的开始点和结束点的一个角度，这个角度用弧度来衡量。
+        沿着 X 轴正半轴的三点钟方向的角度为 0 .
+
+      counterclockwise：逆时针(true), 顺时针(false), 弧沿着圆周的逆时针方向，还是顺时针方向遍历。
+
+    */
+
+    ctx.arc(250, 250, 200, 0, Math.PI*2, false);
+    // 填充
+    ctx.fillStyle = 'gold';
+    ctx.fill();
+
+    // 描边
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = 'red';
+
+    // 渲染
+    ctx.stroke();
+
+  </script>
+</body>
+
+</html>

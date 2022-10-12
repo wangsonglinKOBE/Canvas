@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>画文字</title>
+  <style>
+    canvas {
+      display: block;
+      margin: 0 auto;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="cont" width="500px" height="500px">您的浏览器版本过低！</canvas>
+
+  <script>
+    const canvas = document.querySelector('#cont');
+    const ctx = canvas.getContext('2d');
+
+    ctx.beginPath();
+    ctx.moveTo(250, 0);
+    ctx.lineTo(250, 500);
+    ctx.stroke();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.moveTo(0, 250);
+    ctx.lineTo(500, 250);
+    ctx.stroke();
+    ctx.closePath();
+
+    /* 
+      文字水平位置的属性和值
+        textAlign = start/left  end/right center
+    */
+
+    /* \
+      文字垂直位置的属性和值
+      textBaseline = bottom/alphabetic top/hanging middle
+    \ */
+
+    ctx.font = '40px 微软雅黑';
+    // 水平位置
+    ctx.textAlign = 'center';
+    // 垂直位置
+    ctx.textBaseline = 'middle';
+    ctx.fillText('HTML5', 250, 250);
+
+  </script>
+</body>
+
+</html>

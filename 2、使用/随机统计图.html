@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    canvas {
+      display: block;
+      margin: 0 auto;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas width="500" height="500" id="cont">您的浏览器版本过低，请升级浏览器或者使用chrome打开！</canvas>
+</body>
+
+<script>
+  // 固定
+  var canvas = document.querySelector('#cont');
+  var ctx = canvas.getContext('2d');
+
+  // 画坐标系
+  ctx.beginPath();
+  ctx.moveTo(100, 100);
+  ctx.lineTo(100, 400);
+  ctx.lineTo(400, 400);
+  ctx.stroke();
+
+  // 画矩形
+  // ctx.fillRect(200, 200, 20, 200);
+
+  for (let index = 0; index < 5; index++) {
+    // 随机高度 [10, 290), 注意起始点是的y坐标是坐标系的y坐标减去高度来计算的
+    var height = Math.random() * 280 + 10;
+    // 随机颜色  "0x" 表示16 进制, 随机16进制字符串
+    ctx.fillStyle = '#' + parseInt(Math.random() * 0xFFFFFF).toString(16);
+    ctx.fillRect(120 + index * 40, 400 - height, 20, height);
+  }
+
+</script>
+
+</html>

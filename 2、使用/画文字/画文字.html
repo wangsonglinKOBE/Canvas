@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>画文字</title>
+  <style>
+    canvas {
+      display: block;
+      margin: 0 auto;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="cont" width="500px" height="500px">您的浏览器版本过低！</canvas>
+
+  <script>
+    /* 
+      绘制文字：
+        api: fillText(text, x, y, maxWidth);
+        text: 文本
+        x， y:开始的坐标(相对于画布)
+        maxWidth: 可选，允许最大文本宽度，以像素计
+    */
+    const canvas = document.querySelector('#cont');
+    const ctx = canvas.getContext('2d');
+
+    // 设置字体样式
+    ctx.font = '50px 微软雅黑';
+
+    // 设置字体颜色
+    ctx.fillStyle = 'cyan';
+
+    // 画文字
+    ctx.fillText('kobe_bryant', 100, 100);
+
+
+
+    /*
+      绘制空心文字：
+        strokeText(text, x, y, maxWidth)
+    */
+    ctx.font = '50px 微软雅黑';
+    ctx.strokeStyle = 'gold';
+    ctx.strokeText('李嘉卉', 180, 250);
+
+
+
+    // 超出画布，设置最大宽度，maxWidth
+    // 画布宽500，x坐标为300，所以最大宽度不超过200
+    ctx.fillStyle = 'blue';
+    ctx.fillText('hello canvas!', 300, 170, 200);
+
+
+  </script>
+</body>
+
+</html>
