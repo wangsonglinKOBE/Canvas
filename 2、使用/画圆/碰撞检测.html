@@ -35,28 +35,48 @@
     // 垂直速度
     let ySpeed = 2;
 
-    setInterval(() => {
-      // 清除画布
-      ctx.clearRect(0, 0, w, h);
+    // setInterval(() => {
+    //   // 清除画布
+    //   ctx.clearRect(0, 0, w, h);
 
-      // 在小球碰到边缘时，速度相反即可！
+    //   // 在小球碰到边缘时，速度相反即可！
+    //   if (x - r <= 0 || x + r >= w) {
+    //     // 当碰到左右两边边框时，水平速度取反
+    //     xSpeed = -xSpeed;
+    //   }
+    //   if (y - r <= 0 || y + r >= h) {
+    //     // 当碰到上下两边边框时，垂直速度取反
+    //     ySpeed = -ySpeed;
+    //   }
+
+    //   // 水平运动的速度
+    //   x += xSpeed;
+
+    //   // 垂直运动的速度
+    //   y += ySpeed;
+    //   // 运动
+    //   drawCircle(x, y, r);
+    // }, 10);
+
+    function renders() {
+      ctx.clearRect(0, 0, w, h);
       if (x - r <= 0 || x + r >= w) {
-        // 当碰到左右两边边框时，水平速度取反
         xSpeed = -xSpeed;
       }
       if (y - r <= 0 || y + r >= h) {
-        // 当碰到上下两边边框时，垂直速度取反
         ySpeed = -ySpeed;
       }
-
-      // 水平运动的速度
       x += xSpeed;
-
-      // 垂直运动的速度
       y += ySpeed;
-      // 运动
       drawCircle(x, y, r);
-    }, 10);
+    };
+
+    (function animateloop() {
+      renders();
+      window.requestAnimationFrame(animateloop);
+    })();
+
+
 
     function drawCircle(x, y, r) {
       ctx.beginPath();

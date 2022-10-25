@@ -125,19 +125,40 @@
     }
 
     // 运动
+    // var count = 1;
+    // let timer = setInterval(function () {
+    //   count++;
+    //   // 清除画布
+    //   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    //   for (var i = 0; i < ballArr.length; i++) {
+    //     ballArr[i].show();
+    //   }
+    //   if (count == times) {
+    //     clearInterval(timer);
+    //     return;
+    //   }
+    // }, 20)
+
+
+    // 运动
     var count = 1;
-    let timer = setInterval(function () {
+    function render() {
       count++;
       // 清除画布
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
       for (var i = 0; i < ballArr.length; i++) {
         ballArr[i].show();
       }
+    }
+
+    (function animateloop() {
+      render();
+      let runTimer = requestAnimationFrame(animateloop);
       if (count == times) {
-        clearInterval(timer);
-        return;
+        cancelAnimationFrame(runTimer);
       }
-    }, 20)
+
+    })();
 
 
 
