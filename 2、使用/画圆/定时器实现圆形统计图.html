@@ -24,18 +24,39 @@
     const deg = Math.PI * 2 / 360;
     let count = 0;
 
-    const timer = setInterval(() => {
+    // const timer = setInterval(() => {
+    //   count++;
+    //   ctx.beginPath();
+    //   ctx.arc(250, 250, 200, 0, deg * count, false);
+    //   // ctx.arc(250, 250, 200, -Math.PI / 2, deg * count - Math.PI / 2, false);
+    //   ctx.lineWidth = 5;
+    //   ctx.strokeStyle = '#f00';
+    //   ctx.stroke();
+    //   if (count === 360) {
+    //     clearInterval(timer);
+    //   }
+    // }, 5);
+
+    function runTimer() {
       count++;
       ctx.beginPath();
       ctx.arc(250, 250, 200, 0, deg * count, false);
-      // ctx.arc(250, 250, 200, -Math.PI / 2, deg * count - Math.PI / 2, false);
       ctx.lineWidth = 5;
       ctx.strokeStyle = '#f00';
       ctx.stroke();
+
+    }
+
+    (function animateloop() {
+      runTimer();
+      let loops = requestAnimationFrame(animateloop);
+
       if (count === 360) {
-        clearInterval(timer);
+        cancelAnimationFrame(loops)
       }
-    }, 5);
+    })()
+
+    console.log('count', count);
 
 
     // 封装画圆的方法
@@ -48,6 +69,7 @@
     // }
 
     // drawCircle(250, 250, 100, false)
+    
   </script>
 </body>
 
